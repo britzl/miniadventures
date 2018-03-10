@@ -1,0 +1,44 @@
+images {
+  image: "/assets/images/diamond.png"
+}
+images {
+  image: "/assets/images/heart.png"
+}
+images {
+  image: "/assets/images/key.png"
+}
+animations {
+  id: "enemy_idle"
+  images {
+    image: "/assets/images/enemy_idle1.png"
+  }
+  images {
+    image: "/assets/images/enemy_idle2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 1
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "enemy_run"
+  images {
+    image: "/assets/images/enemy_run0.png"
+  }
+  images {
+    image: "/assets/images/enemy_run1.png"
+  }
+  images {
+    image: "/assets/images/enemy_run2.png"
+  }
+  images {
+    image: "/assets/images/enemy_idle2.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 5
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+margin: 0
+extrude_borders: 2
+inner_padding: 0

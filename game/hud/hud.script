@@ -1,0 +1,12 @@
+function on_message(self, message_id, message, sender)
+	if message_id == hash("diamonds") then
+		label.set_text("#diamond_count", ("%02d"):format(message.diamonds))
+	elseif message_id == hash("lives") then
+		for i=1,5 do
+			local anim = "heart_" .. (i <= message.lives and "on" or "off")
+			msg.post("#heart" .. i, "play_animation", { id = hash(anim) })
+		end
+	elseif message_id == hash("name") then
+		label.set_text("#level_name", message.name)
+	end
+end

@@ -1,0 +1,17 @@
+function init(self)
+	msg.post("#", "blink_on")
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("blink_on") then
+		msg.post("#sprite", "enable")
+		timer.seconds(math.random(5, 15), function()
+			msg.post("#", "blink_off")
+		end)
+	elseif message_id == hash("blink_off") then
+		msg.post("#sprite", "disable")
+		timer.seconds(math.random(1, 2) / 5, function()
+			msg.post("#", "blink_on")
+		end)
+	end
+end

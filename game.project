@@ -1,0 +1,35 @@
+[project]
+title = Miniadventures
+dependencies = https://github.com/britzl/defold-input/archive/0.10.1.zip,https://github.com/britzl/ludobits/archive/5.0.zip,https://github.com/britzl/defold-orthographic/archive/2.2.zip,https://github.com/britzl/defold-timer/archive/1.1.1.zip
+
+[bootstrap]
+main_collection = /game/game.collectionc
+render = /orthographic/render/orthographic.renderc
+
+[input]
+game_binding = /in/bindings/all.input_bindingc
+gamepads = /in/gamepads/in.gamepadsc
+
+[display]
+width = 640
+height = 1136
+
+[script]
+shared_state = 1
+
+[ios]
+bundle_identifier = com.britzl.defold.miniadventures
+
+[osx]
+bundle_identifier = com.britzl.defold.miniadventures
+
+[graphics]
+default_texture_min_filter = nearest
+default_texture_mag_filter = nearest
+
+[android]
+package = com.britzl.defold.miniadventures
+
+[physics]
+debug = 0
+
