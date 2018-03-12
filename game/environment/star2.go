@@ -1,6 +1,6 @@
 components {
   id: "star"
-  component: "/game/star.script"
+  component: "/game/environment/star.script"
   position {
     x: 0.0
     y: 0.0
@@ -17,7 +17,7 @@ embedded_components {
   id: "sprite"
   type: "sprite"
   data: "tile_set: \"/assets/alltiles.tilesource\"\n"
-  "default_animation: \"star1\"\n"
+  "default_animation: \"star2\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "blend_mode: BLEND_MODE_ALPHA\n"
   ""

@@ -79,6 +79,8 @@ function on_message(self, message_id, message, sender)
 		elseif message.group == hash("diamond") then
 			msg.post("game:/game", "collect_diamond")
 			go.delete(message.other_id)
+		elseif message.group == hash("dialog") then
+			self.platformer.stop()
 		end
 	end
 end

@@ -1,3 +1,7 @@
+local logger = require "ludobits.m.logger"
+local log = logger.create("game")
+
+
 local LEVELS = {
 	{ proxy = "levels#intro", name = "Intro" },
 	{ proxy = "levels#level1", name = "Intro" },
@@ -9,6 +13,7 @@ local function send_to_hud(message_id, message)
 end
 
 local function load_level(self, level_id)
+	log.i("load level", level_id)
 	if self.current_level then
 		msg.post(self.current_level.proxy, "unload")
 	end
@@ -19,11 +24,25 @@ local function load_level(self, level_id)
 end
 
 local function update_diamonds(diamonds)
+	log.i("update diamonds", diamonds)
 	send_to_hud("diamonds", { diamonds = diamonds })
 end
 
 local function update_lives(lives)
+	log.i("update lives", lives)
 	send_to_hud("lives", { lives = lives })
+end
+
+local function show_dialog(self, id)
+	log.i("show dialog", id)
+	msg.post("/levels", "release_input_focus")
+	msg.post("dialog", "show", { id = id })
+end
+
+local function hide_dialog(self)
+	log.i("hide dialog", id)
+	msg.post("/levels", "acquire_input_focus")
+	msg.post("dialog", "hide")
 end
 
 function init(self)
@@ -48,6 +67,10 @@ function on_message(self, message_id, message, sender)
 		update_diamonds(self.diamonds)
 	elseif message_id == hash("proxy_loaded") then
 		msg.post(sender, "enable")
+	elseif message_id == hash("show_dialog") then
+		show_dialog(self, message.id)
+	elseif message_id == hash("hide_dialog") then
+		hide_dialog(self)
 	end
 end
 

@@ -1,4 +1,4 @@
-name: "level1"
+name: "level"
 instances {
   id: "player"
   prototype: "/game/player.go"
@@ -20,8 +20,28 @@ instances {
   }
 }
 instances {
+  id: "star"
+  prototype: "/game/environment/star1.go"
+  position {
+    x: 95.0
+    y: 126.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
   id: "star1"
-  prototype: "/game/star1.go"
+  prototype: "/game/environment/star1.go"
   position {
     x: 40.0
     y: 98.0
@@ -40,31 +60,11 @@ instances {
   }
 }
 instances {
-  id: "star"
-  prototype: "/game/star1.go"
-  position {
-    x: 90.0
-    y: 116.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
   id: "star2"
-  prototype: "/game/star2.go"
+  prototype: "/game/environment/star2.go"
   position {
-    x: 136.0
-    y: 97.0
+    x: 69.0
+    y: 111.0
     z: 0.0
   }
   rotation {
@@ -81,7 +81,7 @@ instances {
 }
 instances {
   id: "star3"
-  prototype: "/game/star2.go"
+  prototype: "/game/environment/star2.go"
   position {
     x: 29.0
     y: 135.0
@@ -100,8 +100,88 @@ instances {
   }
 }
 instances {
+  id: "star4"
+  prototype: "/game/environment/star3.go"
+  position {
+    x: 70.0
+    y: 142.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "star5"
+  prototype: "/game/environment/star1.go"
+  position {
+    x: 43.0
+    y: 131.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "star6"
+  prototype: "/game/environment/star1.go"
+  position {
+    x: 130.0
+    y: 139.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "star7"
+  prototype: "/game/environment/star2.go"
+  position {
+    x: 111.0
+    y: 141.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
   id: "star31"
-  prototype: "/game/star3.go"
+  prototype: "/game/environment/star3.go"
   position {
     x: 141.0
     y: 131.0
@@ -120,11 +200,11 @@ instances {
   }
 }
 instances {
-  id: "star4"
-  prototype: "/game/star3.go"
+  id: "dialog_trigger"
+  prototype: "/game/dialog/dialog_trigger.go"
   position {
-    x: 70.0
-    y: 142.0
+    x: 164.0
+    y: 36.0
     z: 0.0
   }
   rotation {
@@ -132,6 +212,14 @@ instances {
     y: 0.0
     z: 0.0
     w: 1.0
+  }
+  component_properties {
+    id: "dialog_trigger"
+    properties {
+      id: "dialog"
+      value: "intro"
+      type: PROPERTY_TYPE_HASH
+    }
   }
   scale3 {
     x: 1.0
@@ -142,12 +230,9 @@ instances {
 scale_along_z: 0
 embedded_instances {
   id: "level"
+  children: "dialog_trigger"
   children: "star"
-  children: "star1"
-  children: "star2"
-  children: "star3"
-  children: "star31"
-  children: "star4"
+  children: "stars"
   data: "components {\n"
   "  id: \"level\"\n"
   "  component: \"/game/levels/intro.tilemap\"\n"
@@ -195,6 +280,34 @@ embedded_instances {
     x: 0.0
     y: 0.0
     z: -1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "stars"
+  children: "star1"
+  children: "star2"
+  children: "star3"
+  children: "star31"
+  children: "star4"
+  children: "star5"
+  children: "star6"
+  children: "star7"
+  data: ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
   }
   rotation {
     x: 0.0
