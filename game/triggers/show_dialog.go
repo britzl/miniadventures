@@ -1,6 +1,6 @@
 components {
   id: "dialog_trigger"
-  component: "/game/dialog/dialog_trigger.script"
+  component: "/game/triggers/show_dialog.script"
   position {
     x: 0.0
     y: 0.0
@@ -21,7 +21,7 @@ embedded_components {
   "mass: 0.0\n"
   "friction: 0.1\n"
   "restitution: 0.5\n"
-  "group: \"dialog\"\n"
+  "group: \"trigger\"\n"
   "mask: \"player\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
@@ -41,7 +41,7 @@ embedded_components {
   "    count: 3\n"
   "  }\n"
   "  data: 4.0\n"
-  "  data: 4.0\n"
+  "  data: 20.0\n"
   "  data: 10.0\n"
   "}\n"
   "linear_damping: 0.0\n"

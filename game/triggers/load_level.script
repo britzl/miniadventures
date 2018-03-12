@@ -1,0 +1,7 @@
+go.property("level", hash(""))
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") and message.enter then
+		msg.post("game:/game", "load_level", { id = self.level })
+	end
+end

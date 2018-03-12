@@ -27,7 +27,7 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	if action_id and action.released then
+	if action_id and action.pressed then
 		msg.post("game:/game", "hide_dialog")
 	end
 end

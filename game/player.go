@@ -26,7 +26,7 @@ embedded_components {
   "mask: \"ground\"\n"
   "mask: \"danger\"\n"
   "mask: \"diamond\"\n"
-  "mask: \"dialog\"\n"
+  "mask: \"trigger\"\n"
   "embedded_collision_shape {\n"
   "  shapes {\n"
   "    shape_type: TYPE_SPHERE\n"

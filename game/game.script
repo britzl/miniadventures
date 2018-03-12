@@ -3,9 +3,9 @@ local log = logger.create("game")
 
 
 local LEVELS = {
-	{ proxy = "levels#intro", name = "Intro" },
-	{ proxy = "levels#level1", name = "Intro" },
-	{ proxy = "levels#level2", name = "Intro" },
+	[hash("intro")] = { proxy = "levels#intro", name = "Intro" },
+	[hash("level1")] = { proxy = "levels#level1", name = "Level 1" },
+	[hash("level2")] = { proxy = "levels#level2", name = "Level 2" },
 }
 
 local function send_to_hud(message_id, message)
@@ -48,12 +48,11 @@ end
 function init(self)
 	msg.post("@render:", "clear_color", { color = vmath.vector4(0.114, 0.153, 0.133, 1.0) })
 	msg.post("/levels", "acquire_input_focus")
-	self.level = 1
 	self.diamonds = 0
 	self.lives = 5
 	update_diamonds(self.diamonds)
 	update_lives(self.lives)
-	load_level(self, self.level)
+	load_level(self, hash("intro"))
 end
 
 function final(self)
@@ -71,6 +70,8 @@ function on_message(self, message_id, message, sender)
 		show_dialog(self, message.id)
 	elseif message_id == hash("hide_dialog") then
 		hide_dialog(self)
+	elseif message_id == hash("load_level") then
+		load_level(self, message.id)
 	end
 end
 
