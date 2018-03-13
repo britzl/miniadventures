@@ -1,8 +1,12 @@
 go.property("dialog", hash(""))
+go.property("delete_on_trigger", false)
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("trigger_response") and message.enter then
 		msg.post("game:/game", "show_dialog", { id = self.dialog })
 		msg.post(message.other_id, "showing_dialog")
+		if self.delete_on_trigger then
+			go.delete()
+		end
 	end
 end

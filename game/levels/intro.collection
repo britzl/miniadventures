@@ -3,8 +3,8 @@ instances {
   id: "player"
   prototype: "/game/player.go"
   position {
-    x: 19.0
-    y: 37.0
+    x: 21.0
+    y: 36.0
     z: 0.0
   }
   rotation {
@@ -220,6 +220,11 @@ instances {
       value: "intro"
       type: PROPERTY_TYPE_HASH
     }
+    properties {
+      id: "delete_on_trigger"
+      value: "true"
+      type: PROPERTY_TYPE_BOOLEAN
+    }
   }
   scale3 {
     x: 1.0
@@ -228,7 +233,7 @@ instances {
   }
 }
 instances {
-  id: "load_level"
+  id: "load_level1"
   prototype: "/game/triggers/load_level.go"
   position {
     x: 164.0
@@ -255,10 +260,39 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "load_intro"
+  prototype: "/game/triggers/load_level.go"
+  position {
+    x: 12.0
+    y: 52.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  component_properties {
+    id: "load_level"
+    properties {
+      id: "level"
+      value: "intro"
+      type: PROPERTY_TYPE_HASH
+    }
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "level"
-  children: "load_level"
+  children: "load_intro"
+  children: "load_level1"
   children: "show_dialog"
   children: "star"
   children: "stars"

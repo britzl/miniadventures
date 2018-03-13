@@ -312,13 +312,6 @@ layers {
     v_flip: 0
   }
   cell {
-    x: 1
-    y: 4
-    tile: 120
-    h_flip: 0
-    v_flip: 0
-  }
-  cell {
     x: 3
     y: 4
     tile: 120
