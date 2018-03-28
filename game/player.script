@@ -16,6 +16,8 @@ local VELOCITY = 75
 
 function init(self)
 	msg.post(".", "acquire_input_focus")
+	msg.post(".", "disable")
+	state.clear()
 	--camera.follow(CAMERA, go.get_id(), 0.8)
 	--camera.deadzone(CAMERA, 100, 800, 100, 200)
 	mapper.bind(hash("key_space"), JUMP, self.player_id)

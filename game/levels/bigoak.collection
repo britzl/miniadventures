@@ -4,7 +4,7 @@ instances {
   prototype: "/game/player.go"
   position {
     x: 21.0
-    y: 36.0
+    y: 44.0
     z: 0.0
   }
   rotation {
@@ -23,8 +23,8 @@ instances {
   id: "star"
   prototype: "/game/environment/star1.go"
   position {
-    x: 95.0
-    y: 126.0
+    x: 104.0
+    y: 125.0
     z: 0.0
   }
   rotation {
@@ -63,8 +63,8 @@ instances {
   id: "star2"
   prototype: "/game/environment/star2.go"
   position {
-    x: 69.0
-    y: 111.0
+    x: 127.0
+    y: 104.0
     z: 0.0
   }
   rotation {
@@ -200,77 +200,11 @@ instances {
   }
 }
 instances {
-  id: "show_dialog"
-  prototype: "/game/triggers/show_dialog.go"
-  position {
-    x: 28.0
-    y: 52.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  component_properties {
-    id: "dialog_trigger"
-    properties {
-      id: "dialog"
-      value: "intro"
-      type: PROPERTY_TYPE_HASH
-    }
-    properties {
-      id: "delete_on_trigger"
-      value: "true"
-      type: PROPERTY_TYPE_BOOLEAN
-    }
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "to_bigoak"
-  prototype: "/game/triggers/load_level.go"
-  position {
-    x: 169.0
-    y: 52.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  component_properties {
-    id: "load_level"
-    properties {
-      id: "level"
-      value: "bigoak"
-      type: PROPERTY_TYPE_HASH
-    }
-    properties {
-      id: "spawn_point"
-      value: "/from_intro"
-      type: PROPERTY_TYPE_HASH
-    }
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
   id: "to_intro"
   prototype: "/game/triggers/load_level.go"
   position {
     x: 6.0
-    y: 52.0
+    y: 60.0
     z: 0.0
   }
   rotation {
@@ -288,29 +222,9 @@ instances {
     }
     properties {
       id: "spawn_point"
-      value: "/from_intro"
+      value: "/from_bigoak"
       type: PROPERTY_TYPE_HASH
     }
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-instances {
-  id: "from_bigoak"
-  prototype: "/game/spawn_point.go"
-  position {
-    x: 154.0
-    y: 36.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
   }
   scale3 {
     x: 1.0
@@ -322,8 +236,8 @@ instances {
   id: "from_intro"
   prototype: "/game/spawn_point.go"
   position {
-    x: 21.0
-    y: 36.0
+    x: 15.0
+    y: 44.0
     z: 0.0
   }
   rotation {
@@ -338,19 +252,71 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "from_pyramid"
+  prototype: "/game/spawn_point.go"
+  position {
+    x: 158.0
+    y: 44.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "to_pyramid"
+  prototype: "/game/triggers/load_level.go"
+  position {
+    x: 169.0
+    y: 60.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  component_properties {
+    id: "load_level"
+    properties {
+      id: "level"
+      value: "pyramid"
+      type: PROPERTY_TYPE_HASH
+    }
+    properties {
+      id: "spawn_point"
+      value: "/from_bigoak"
+      type: PROPERTY_TYPE_HASH
+    }
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "level"
-  children: "from_bigoak"
   children: "from_intro"
-  children: "show_dialog"
+  children: "from_pyramid"
   children: "star"
   children: "stars"
-  children: "to_bigoak"
   children: "to_intro"
+  children: "to_pyramid"
   data: "components {\n"
   "  id: \"level\"\n"
-  "  component: \"/game/levels/intro.tilemap\"\n"
+  "  component: \"/game/levels/bigoak.tilemap\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -381,7 +347,7 @@ embedded_instances {
   "embedded_components {\n"
   "  id: \"collisionobject\"\n"
   "  type: \"collisionobject\"\n"
-  "  data: \"collision_shape: \\\"/game/levels/intro.tilemap\\\"\\n"
+  "  data: \"collision_shape: \\\"/game/levels/bigoak.tilemap\\\"\\n"
   "type: COLLISION_OBJECT_TYPE_STATIC\\n"
   "mass: 0.0\\n"
   "friction: 0.1\\n"

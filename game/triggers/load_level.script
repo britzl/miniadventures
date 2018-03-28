@@ -1,7 +1,15 @@
 go.property("level", hash(""))
+go.property("spawn_point", hash(""))
+
+function init(self)
+	print("load_level", self.level, self.spawn_point)
+	assert(self.level ~= hash(""), "You must specify a level in " .. msg.url())
+	assert(self.spawn_point ~= hash(""), "You must specify a spawn_point in " .. msg.url())
+end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("trigger_response") and message.enter then
-		msg.post("game:/game", "load_level", { id = self.level })
+		print("load_level trigger", self.level, self.spawn_point)
+		msg.post("game:/game", "load_level", { id = self.level, spawn_point = self.spawn_point })
 	end
 end

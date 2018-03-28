@@ -1,0 +1,42 @@
+local platformer = require "ludobits.m.platformer"
+local message_handler = require "game.utils.message_handler"
+
+
+go.property("awake", false)
+go.property("speed", 20)
+
+function init(self)
+	self.platformer = platformer.create({ hash("ground") })
+	self.platformer.gravity = -500
+
+	self.message_handler = message_handler.create()
+	self.message_handler.register("trigger_response", function(message, sender)
+		self.message_handler.unregister("trigger_response")
+		self.awake = true
+	end)
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	if self.awake then
+		local player_pos = go.get_position("player")
+		local my_pos = go.get_position()
+		if my_pos.x > player_pos.x then
+			self.platformer.left(self.speed)
+		elseif my_pos.x < player_pos.x then
+			self.platformer.right(self.speed)
+		else
+			self.platformer.stop()
+		end
+	end
+	self.platformer.update(dt)
+end
+
+function on_message(self, message_id, message, sender)
+	self.platformer.on_message(message_id, message, sender)
+	self.message_handler.handle(message_id, message, sender)
+end

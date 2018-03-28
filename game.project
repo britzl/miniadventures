@@ -1,6 +1,6 @@
 [project]
 title = Miniadventures
-dependencies = https://github.com/britzl/defold-input/archive/0.10.1.zip,https://github.com/britzl/ludobits/archive/5.0.zip,https://github.com/britzl/defold-orthographic/archive/2.2.zip,https://github.com/britzl/defold-timer/archive/1.1.1.zip
+dependencies = https://github.com/britzl/defold-input/archive/1.2.0.zip,https://github.com/britzl/ludobits/archive/5.0.zip,https://github.com/britzl/defold-orthographic/archive/2.2.zip,https://github.com/britzl/defold-timer/archive/1.1.1.zip
 
 [bootstrap]
 main_collection = /game/game.collectionc

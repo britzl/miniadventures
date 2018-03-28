@@ -1,26 +1,41 @@
+local flow = require "ludobits.m.flow"
+local state = require "in.state"
 local logger = require "ludobits.m.logger"
 local log = logger.create("game")
 
-
 local LEVELS = {
 	[hash("intro")] = { proxy = "levels#intro", name = "Intro" },
+	[hash("bigoak")] = { proxy = "levels#bigoak", name = "Big Oak" },
+	[hash("pyramid")] = { proxy = "levels#pyramid", name = "Pyramid" },
+	[hash("oldmaze")] = { proxy = "levels#oldmaze", name = "Old Maze" },
 	[hash("level1")] = { proxy = "levels#level1", name = "Level 1" },
 	[hash("level2")] = { proxy = "levels#level2", name = "Level 2" },
 }
 
 local function send_to_hud(message_id, message)
-	msg.post("/hud/hud", message_id, message)
+	msg.post("/hud/hud", message_id, message or {})
 end
 
-local function load_level(self, level_id)
+local function load_level(self, level_id, spawn_point)
 	log.i("load level", level_id)
-	if self.current_level then
-		msg.post(self.current_level.proxy, "unload")
-	end
-	self.current_level = LEVELS[level_id]
-	msg.post(self.current_level.proxy, "async_load")
-	
-	send_to_hud("name", { name = self.current_level.name })
+	flow(function()
+		if self.current_level then
+			msg.post(self.current_level.proxy, "set_time_step", { factor = 0, mode = 1 })
+			send_to_hud("cover_level", { time = 0.5 })
+			flow.delay(0.5)
+			flow.unload(self.current_level.proxy)
+			msg.post(self.current_level.proxy, "set_time_step", { factor = 1, mode = 1 })
+		end
+		self.current_level = LEVELS[level_id]
+		send_to_hud("name", { name = self.current_level.name })
+		flow.load(self.current_level.proxy)
+		send_to_hud("uncover_level", { time = 0.5 })
+		if spawn_point then
+			print("spawn_point", spawn_point)
+			msg.post("level:/level", "spawn_player", { spawn_point = spawn_point })
+		end
+		msg.post("level:/level", "enable_player")
+	end)
 end
 
 local function update_diamonds(diamonds)
@@ -53,7 +68,7 @@ function init(self)
 	self.lives = 5
 	update_diamonds(self.diamonds)
 	update_lives(self.lives)
-	load_level(self, hash("intro"))
+	load_level(self, hash("pyramid"))
 end
 
 function final(self)
@@ -61,22 +76,29 @@ function final(self)
 	-- Remove this function if not needed
 end
 
+function update(self, dt)
+	flow.update(dt)
+end
+
 function on_message(self, message_id, message, sender)
+	print("msssage", message_id)
+	flow.on_message(message_id, message, sender)
 	if message_id == hash("collect_diamond") then
 		self.diamonds = self.diamonds + 1
 		update_diamonds(self.diamonds)
 	elseif message_id == hash("proxy_loaded") then
-		msg.post(sender, "enable")
+		--msg.post(sender, "enable")
 	elseif message_id == hash("show_dialog") then
 		show_dialog(self, message.id)
 	elseif message_id == hash("hide_dialog") then
 		hide_dialog(self)
 	elseif message_id == hash("load_level") then
-		load_level(self, message.id)
+		load_level(self, message.id, message.spawn_point)
 	end
 end
 
 function on_input(self, action_id, action)
+	state.on_input(action_id, action)
 	if action_id == hash("key_p") and action.released then
 		msg.post("@system:", "toggle_physics_debug")
 	end

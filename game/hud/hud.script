@@ -1,3 +1,36 @@
+local WIDTH = 20
+local HEIGHT = 19
+
+local function bottom_to_top(i)
+	local x = 2 + (i % WIDTH)
+	local y = 2 + math.floor(i / WIDTH)
+	return x, y
+end
+
+local function cover_level(total_time, direction_fn, tile)
+	local tile_count = (WIDTH * HEIGHT) - 1
+	local covered_tiles = 0
+	local time = total_time
+	return function(self, dt)
+		time = time - dt
+		local tiles = math.floor(tile_count * ((total_time - time) / total_time) )
+		for i=covered_tiles,tiles do
+			local x, y = direction_fn(i)
+			tilemap.set_tile("#border", hash("bg"), x, y, tile)
+		end
+		covered_tiles = tiles
+		if time < 0 then
+			self.cover_fn = nil
+		end
+	end
+end
+
+function update(self, dt)
+	if self.cover_fn then
+		self.cover_fn(self, dt)
+	end
+end
+
 function on_message(self, message_id, message, sender)
 	if message_id == hash("diamonds") then
 		label.set_text("#diamond_count", ("%02d"):format(message.diamonds))
@@ -8,5 +41,9 @@ function on_message(self, message_id, message, sender)
 		end
 	elseif message_id == hash("name") then
 		label.set_text("#level_name", message.name)
+	elseif message_id == hash("cover_level") then
+		self.cover_fn = cover_level(message.time, bottom_to_top, 3)
+	elseif message_id == hash("uncover_level") then
+		self.cover_fn = cover_level(message.time, bottom_to_top, 0)
 	end
 end
