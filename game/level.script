@@ -1,6 +1,5 @@
 function on_message(self, message_id, message, sender)
 	if message_id == hash("spawn_player") then
-		pprint(message)
 		local spawn_pos = go.get_position(message.spawn_point)
 		go.set_position(spawn_pos, "player")
 	elseif message_id == hash("enable_player") then

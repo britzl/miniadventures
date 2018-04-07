@@ -68,7 +68,7 @@ function init(self)
 	self.lives = 5
 	update_diamonds(self.diamonds)
 	update_lives(self.lives)
-	load_level(self, hash("pyramid"))
+	load_level(self, hash("intro"))
 end
 
 function final(self)
