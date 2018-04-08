@@ -338,9 +338,30 @@ instances {
     z: 1.0
   }
 }
+instances {
+  id: "diamond"
+  prototype: "/game/diamond.go"
+  position {
+    x: 68.0
+    y: 36.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "level"
+  children: "diamond"
   children: "from_bigoak"
   children: "from_intro"
   children: "show_dialog"

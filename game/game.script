@@ -1,5 +1,6 @@
 local flow = require "ludobits.m.flow"
 local state = require "in.state"
+local game_state = require "game.state"
 local logger = require "ludobits.m.logger"
 local log = logger.create("game")
 
@@ -29,12 +30,8 @@ local function load_level(self, level_id, spawn_point)
 		self.current_level = LEVELS[level_id]
 		send_to_hud("name", { name = self.current_level.name })
 		flow.load(self.current_level.proxy)
+		msg.post("level:/level", "start_level", { id = level_id, spawn_point = spawn_point})
 		send_to_hud("uncover_level", { time = 0.5 })
-		if spawn_point then
-			print("spawn_point", spawn_point)
-			msg.post("level:/level", "spawn_player", { spawn_point = spawn_point })
-		end
-		msg.post("level:/level", "enable_player")
 	end)
 end
 
@@ -64,6 +61,8 @@ function init(self)
 	msg.post("@render:", "clear_color", { color = vmath.vector4(0.114, 0.153, 0.133, 1.0) })
 	msg.post("/levels", "acquire_input_focus")
 	msg.post("#", "acquire_input_focus")
+	game_state.reset()
+	game_state.load()
 	self.diamonds = 0
 	self.lives = 5
 	update_diamonds(self.diamonds)

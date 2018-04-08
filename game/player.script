@@ -80,6 +80,7 @@ function on_message(self, message_id, message, sender)
 			self.ladder_contact = true
 		elseif message.group == hash("diamond") then
 			msg.post("game:/game", "collect_diamond")
+			msg.post("level", "delete", { id = message.other_id })
 			go.delete(message.other_id)
 		end
 	elseif message_id == hash("showing_dialog") then

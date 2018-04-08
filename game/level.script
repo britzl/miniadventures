@@ -1,8 +1,18 @@
+local game_state = require "game.state"
+
+local MSG_START_LEVEL = hash("start_level")
+local MSG_DELETE = hash("delete")
+
 function on_message(self, message_id, message, sender)
-	if message_id == hash("spawn_player") then
-		local spawn_pos = go.get_position(message.spawn_point)
-		go.set_position(spawn_pos, "player")
-	elseif message_id == hash("enable_player") then
+	if message_id == MSG_START_LEVEL then
+		self.level_id = message.id
+		if message.spawn_point then
+			local spawn_pos = go.get_position(message.spawn_point)
+			go.set_position(spawn_pos, "player")
+		end
 		msg.post("player", "enable")
+		game_state.delete_game_objects(self.level_id)
+	elseif message_id == MSG_DELETE then
+		game_state.game_object_deleted(self.level_id, message.id)
 	end
 end
