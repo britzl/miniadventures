@@ -1,4 +1,4 @@
-local platformer = require "ludobits.m.platformer"
+local platypus = require "platypus.platypus"
 local message_handler = require "game.utils.message_handler"
 
 
@@ -6,8 +6,14 @@ go.property("awake", false)
 go.property("speed", 20)
 
 function init(self)
-	self.platformer = platformer.create({ hash("ground") })
-	self.platformer.gravity = -500
+	self.platformer = platypus.create({
+		collisions = {
+			ground = { hash("ground") },
+			left = 3, right = 3, top = 3, bottom = 3,
+		},
+		gravity = -500,
+		max_velocity = 400
+	})
 
 	self.message_handler = message_handler.create()
 	self.message_handler.register("trigger_response", function(message, sender)

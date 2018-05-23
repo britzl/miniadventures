@@ -208,7 +208,7 @@ convex_hulls {
 convex_hulls {
   index: 245
   count: 4
-  collision_group: ""
+  collision_group: "ladder"
 }
 convex_hulls {
   index: 249

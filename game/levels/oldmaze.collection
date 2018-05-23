@@ -56,7 +56,7 @@ instances {
   id: "from_pyramid"
   prototype: "/game/spawn_point.go"
   position {
-    x: 15.0
+    x: 16.0
     y: 76.0
     z: 0.0
   }

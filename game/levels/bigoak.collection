@@ -236,7 +236,7 @@ instances {
   id: "from_intro"
   prototype: "/game/spawn_point.go"
   position {
-    x: 15.0
+    x: 16.0
     y: 44.0
     z: 0.0
   }
