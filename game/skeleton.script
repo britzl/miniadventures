@@ -36,7 +36,7 @@ function update(self, dt)
 		elseif my_pos.x < player_pos.x then
 			self.platformer.right(self.speed)
 		else
-			self.platformer.stop()
+			--self.platformer.stop()
 		end
 	end
 	self.platformer.update(dt)
